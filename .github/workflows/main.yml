@@ -50,7 +50,7 @@ jobs:
         pytest --junitxml=test-results.xml
 
     - name: Archive test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: test-results
         path: test-results.xml
