@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ROT13Encryption")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c08ac09fd38365958fe3e7d56f7831a8186263f7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80abb46d651d69a47d2d25cdaf0557f3f61c61be")]
 [assembly: System.Reflection.AssemblyProductAttribute("ROT13Encryption")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ROT13Encryption")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
