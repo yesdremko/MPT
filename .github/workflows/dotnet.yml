@@ -1,4 +1,4 @@
-name: .NET
+name: .NET CI
 
 on:
   push:
@@ -11,19 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0.x'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
-      run: dotnet restore Lab2/MySolution.sln
+      - name: Restore dependencies
+        run: dotnet restore Lab2/MySolution.sln
 
-    - name: Build
-      run: dotnet build Lab2/MySolution.sln --no-restore
+      - name: Build
+        run: dotnet build Lab2/MySolution.sln --no-restore --configuration Release
 
-    - name: Run tests
-      run: dotnet test Lab2/MySolution.sln --no-build --verbosity normal
+      - name: Run tests
+        run: dotnet test Lab2/MySolution.sln --no-build --verbosity normal --configuration Release
