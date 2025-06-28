@@ -20,10 +20,10 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore FacadeProject/FacadeProject.csproj
+        run: dotnet restore Lab3/MySolution.sln
 
       - name: Build
-        run: dotnet build FacadeProject/FacadeProject.csproj --no-restore --configuration Release
+        run: dotnet build Lab3/MySolution.sln --no-restore --configuration Release
 
       - name: Run Facade tests
-        run: dotnet test FacadeProject.Tests/FacadeProject.Tests.csproj --no-build --verbosity normal
+        run: dotnet test Lab3/MySolution.sln --no-build --verbosity normal --configuration Release
