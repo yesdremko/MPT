@@ -1,0 +1,29 @@
+name: Facade Pattern CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore FacadeProject/FacadeProject.csproj
+
+      - name: Build
+        run: dotnet build FacadeProject/FacadeProject.csproj --no-restore --configuration Release
+
+      - name: Run Facade tests
+        run: dotnet test FacadeProject.Tests/FacadeProject.Tests.csproj --no-build --verbosity normal
