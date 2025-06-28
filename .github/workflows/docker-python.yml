@@ -11,6 +11,10 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -20,7 +24,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
@@ -28,16 +32,30 @@ jobs:
           context: .
           file: Lab6/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/mpt-lab6:latest
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/mpt-lab6:latest
+            ghcr.io/${{ github.repository_owner }}/mpt-lab6:${{ github.sha }}
 
   test-in-container:
     needs: build-and-push
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
     steps:
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Pull image
-        run: docker pull ghcr.io/${{ github.repository_owner }}/mpt-lab6:latest
+        run: |
+          docker pull ghcr.io/${{ github.repository_owner }}/mpt-lab6:latest
 
       - name: Run tests inside container
         run: |
-          docker run --rm ghcr.io/${{ github.repository_owner }}/mpt-lab6:latest \
+          docker run --rm \
+            ghcr.io/${{ github.repository_owner }}/mpt-lab6:latest \
             pytest test_app.py
